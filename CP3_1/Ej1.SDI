@@ -1,0 +1,46 @@
+,,,barrido         EQU     0000001b                                                                ;cod
+,,,unidades        EQU 30h                                                                         ;RAM
+,,,decenas         EQU 31h                                                                         ;RAM
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,        org 0000h
+0000,02 00 0D,,        jmp config
+0003,C0 F9 A4 B0,t7seg,t7seg:  db 0c0h, 0f9h, 0a4h, 0b0h, 099h, 092h, 082h, 0f8h, 080h, 090h   ; anodo comun
+,,,
+,,,
+,,,
+000D,90 00 03,config,config: mov DPTR,#t7seg
+0010,78 35,,        mov R0,#35h                                     ;puntero a donde voy a almacenar los datos
+0012,79 30,,        mov R1,#unidades                                ;puntero a RAM de display
+0014,85 C0 30,,        mov unidades,0c0h
+0017,85 C0 31,,        mov decenas,0c0h
+001A,7C 01,,        mov R4,#barrido
+,,,
+001C,12 00 32,ciclo,ciclo:  call delay
+001F,E7,,        mov A,@R1
+0020,79 31,,        mov R1,#decenas
+0022,F5 A0,,        mov P2,A
+0024,8C B0,,        mov P3,R4
+0026,EC,,        mov A,R4
+0027,23,,        RL A
+0028,FC,,        mov R4,A
+0029,BC 04 04,,        cjne R4,#0000100b,next
+002C,79 30,,        mov R1,#unidades
+002E,7C 01,,        mov R4,#barrido
+,,,
+0030,80 EA,next,next:   jmp ciclo
+,,,
+,,,
+,,,
+0032,AD FA,delay,delay:  mov R5, 250
+0034,AB 14,loop,loop:   mov R3, 20
+0036,DB FE,,        djnz R3,$
+0038,DD FA,,        djnz R5,loop
+003A,22,,        ret
+,,,
+,,,
+000E,,,END

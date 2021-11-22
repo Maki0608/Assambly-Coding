@@ -1,0 +1,26 @@
+,,,org 0000h
+0000,02 01 0A,,        jmp inicio
+,,,        org 0100h
+0100,C0 F9 A4 B0,tabla7seg,tabla7seg: db 0c0h, 0f9h, 0a4h, 0b0h, 99h, 92h, 82h, 0f8h, 80h, 90h
+,,,
+010A,85 C0 80,inicio,inicio: mov P0, 0c0h
+010D,85 C0 A0,,        mov P2, 0c0h
+0110,7A 00,,        mov R2, #0
+0112,20 B0 FD,ciclo,ciclo:  jb P3.0, $
+0115,0A,,        inc R2
+0116,BA 33 02,,        cjne R2,#51,next
+0119,7A 00,,        mov R2, #0
+011B,EA,next,next:   mov A, R2
+011C,12 01 21,,        call visual
+011F,80 F1,,        jmp ciclo
+,,,
+0121,75 F0 0A,visual,visual: mov B, #10
+0124,84,,        div AB
+0125,90 01 00,,        mov DPTR, #tabla7seg
+0128,93,,        movc A,@A+DPTR
+0129,F5 80,,        mov P0, A
+012B,E5 F0,,        mov A,B
+012D,93,,        movc A,@A+DPTR
+012E,F5 A0,,        mov P2,A
+0130,22,,        ret
+000E,,,end

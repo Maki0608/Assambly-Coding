@@ -1,0 +1,12 @@
+# Assembler debug file for MCU 8051 IDE v1.4.7
+# Used assembler: MCU 8051 IDE
+# Date: 09/22/2021
+52B1148BE755A5D78138B20D5B1EBD06 "delay 1s.asm" 
+0 2 0 2 0 3
+0 4 3 122 0
+0 6 5 175 250
+0 7 7 174 100
+0 8 9 222 0
+0 9 11 223 250
+0 10 13 10
+0 11 14 186 20 244

@@ -1,0 +1,12 @@
+org 00h
+mov r1,#0
+mov dptr,#tabla
+mov r0,#30h
+mov a,#0
+ciclo:movc a,@A+DPTR
+jnb a.0,par
+mov @R0,a
+inc r0
+par:inc r1
+mov a,r1
+cjne r1,#5,ciclo
